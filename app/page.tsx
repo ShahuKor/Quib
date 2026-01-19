@@ -1,11 +1,18 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-
+import DemoSection from "@/components/Home /demo-section";
+import { HeroSection } from "@/components/Home /hero-section";
+import { Howitworks } from "@/components/Home /how-it-works";
+import { PricingSection } from "@/components/Home /pricing";
+import CTASection from "@/components/Home /cta-section";
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 text-4xl">
-      Hello
-      <Button>Button</Button>
+    <div className="relative w-full">
+      <div className="flex flex-col">
+        <HeroSection />
+        <DemoSection />
+        <Howitworks />
+        <PricingSection />
+        <CTASection />
+      </div>
     </div>
   );
 }
