@@ -5,7 +5,7 @@ export async function generateSummaryFromGemini(pdfText: string) {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-pro-002",
+      model: "gemini-2.5-flash-lite",
       contents: `${SUMMARY_SYSTEM_PROMPT}\n\n${pdfText}`,
       config: {
         temperature: 0.7,

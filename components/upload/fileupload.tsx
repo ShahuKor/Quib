@@ -13,11 +13,11 @@ const schema = z.object({
     .instanceof(File, { message: "Invalid File" })
     .refine(
       (file) => file.size <= 20 * 1024 * 1024,
-      "File Size is must be less than 20MB"
+      "File Size is must be less than 20MB",
     )
     .refine(
       (file) => file.type.startsWith("application/pdf"),
-      "File must be PDF"
+      "File must be PDF",
     ),
 });
 
