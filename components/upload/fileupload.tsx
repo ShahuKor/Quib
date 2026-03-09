@@ -8,6 +8,8 @@ import {
   storePdfSummaryAction,
 } from "@/actions/upload-actions";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
 const schema = z.object({
   file: z
     .instanceof(File, { message: "Invalid File" })
@@ -24,6 +26,8 @@ const schema = z.object({
 export function UploadForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setisLoading] = useState(false);
+  const router = useRouter();
+
   const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
       console.log("uploaded successfully!");
@@ -105,15 +109,15 @@ export function UploadForm() {
             descriptionClassName: "text-zinc-800",
           });
           formRef.current?.reset();
+          //redirect to the summary[id] page
+          router.push(`/summaries/${storeResult.data.id}`);
         }
       }
-
-      //summarize the PDF using Ai
-      //save the su mmary to the database
-      //redirect to the summary[id] page
     } catch (error) {
       console.error("An Error Occured ", error);
       formRef.current?.reset();
+      setisLoading(false);
+    } finally {
       setisLoading(false);
     }
   };
