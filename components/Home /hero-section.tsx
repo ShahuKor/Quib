@@ -31,7 +31,7 @@ export function HeroSection() {
           PDFs into concise summaries
         </h1>
 
-        <h2 className="text-lg sm:text-xl text-zinc-600 mb-8 transition-transform duration-500 hover:scale-120">
+        <h2 className="text-lg sm:text-xl text-zinc-600 mb-8 transition-transform duration-500 hover:scale-110">
           Get a beautiful summary reel of the document in seconds
         </h2>
 
