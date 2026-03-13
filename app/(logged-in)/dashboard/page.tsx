@@ -21,7 +21,7 @@ export default async function Page() {
       <div className=" max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-24 sm:py-32 lg:px-8 ">
         <div className="flex flex-col md:flex-row justify-start  md:items-center gap-4 md:justify-between mb-3">
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl sm:text-5xl font-bold text-neutral-800 ">
+            <h1 className="text-2xl sm:text-5xl font-bold bg-gradient-to-r from-neutral-900 via-slate-500 to-neutral-500 bg-[200%_auto] bg-clip-text text-transparent">
               Your Summaries
             </h1>
             <p className="text-xs font-semibold sm:font-normal sm:text-lg md:text-xl text-zinc-600 ">

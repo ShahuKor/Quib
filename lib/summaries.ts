@@ -7,3 +7,18 @@ export async function getSummaries(userId: string) {
 
   return summaries;
 }
+
+export async function getSummarybyID(summaryid: string) {
+  try {
+    const sql = await getDbConnection();
+    const [summary] = await sql`SELECT *, 
+      (LENGTH(summary_text) - LENGTH(REPLACE(summary_text, ' ', '')) + 1) as wordcount 
+      FROM pdf_summaries 
+      WHERE id = ${summaryid}`;
+
+    return summary;
+  } catch (error) {
+    console.log(`error fetching summary of id : ${summaryid} `, error);
+    return null;
+  }
+}
