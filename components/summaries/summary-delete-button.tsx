@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { deleteSummaryAction } from "@/actions/summary-actions";
 import { toast } from "sonner";
 
@@ -20,17 +20,20 @@ export default function SummaryDeleteButton({
   summaryid: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleDelete = async () => {
-    const result = await deleteSummaryAction({ summaryid });
-    setOpen(false);
-    if (!result?.success) {
-      toast.error("Cannot Delete Summary", {
-        description: "Something went wrong. Failed to delete the summary.",
-      });
-    } else {
-      toast.success("Summary Delete Successfully");
-    }
+    startTransition(async () => {
+      const result = await deleteSummaryAction({ summaryid });
+      setOpen(false);
+      if (!result?.success) {
+        toast.error("Cannot Delete Summary", {
+          description: "Something went wrong. Failed to delete the summary.",
+        });
+      } else {
+        toast.success("Summary Delete Successfully");
+      }
+    });
   };
 
   return (
@@ -62,7 +65,7 @@ export default function SummaryDeleteButton({
             onClick={handleDelete}
             className="bg-gradient-to-r from-zinc-800 to-zinc-600 text-white shadow-md transition hover:brightness-180 hover:shadow-lg"
           >
-            Delete
+            {isPending ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>
       </DialogContent>
