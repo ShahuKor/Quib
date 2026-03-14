@@ -37,7 +37,15 @@ export default async function SummaryPage(props: {
               title={title}
               createdAt={created_at}
             />
-            {file_name && <SourceInfo filename={file_name} />}
+            {file_name && (
+              <SourceInfo
+                originalFileUrl={original_file_url}
+                title={title}
+                summaryText={summary_text}
+                createdAt={created_at}
+                filename={file_name}
+              />
+            )}
             <div className="relative mt-4 sm:mt-8 lg:mt-16 ">
               <div
                 className="relative p-4 sm:p-6 lg:p-8 

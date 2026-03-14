@@ -29,12 +29,12 @@ export default function SummaryHeader({
           </div>
         </div>
         <h1 className="text-2xl lg:text-4xl font-bold lg:tracking-tight">
-          <span className="bg-gradient-to-r from-sky-600 via-sky-300 to-neutral-50 bg-[200%_auto] bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-sky-600 via-sky-300 to-neutral-50 bg-[200%_auto] bg-clip-text text-transparent">
             {title}
           </span>
         </h1>
       </div>
-      <div>
+      <div className="self-start">
         <Link href="/dashboard">
           <Button
             size="sm"
