@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card } from "../ui/card";
 import NavigationControl from "./navigation-control";
 import ProgressBar from "./progressbar";
 import { parseSection } from "@/lib/summaries";

@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Divide } from "lucide-react";
 
 export default function ProgressBar({
   sections,
