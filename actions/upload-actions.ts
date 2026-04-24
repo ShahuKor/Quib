@@ -58,7 +58,6 @@ export async function generateSummary(
     //generate summary using openai
     try {
       summary = await generateSummaryFromOpenAi(pdfText);
-      console.log({ summary });
     } catch (error) {
       console.log(error);
       if (error instanceof Error && error.message == "RATE LIMIT EXCEEDED") {
