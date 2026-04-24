@@ -1,12 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FileText, Menu, X } from "lucide-react";
-import { Button } from "../ui/button";
 import NavLink from "./nav-link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import ClientOnly from "../client";
 
-export default function Header() {
+export default function Header({ planBadge }: { planBadge?: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -46,9 +45,9 @@ export default function Header() {
         </SignedIn>
       </ClientOnly>
 
-      {/* Auth Desktop */}
       <ClientOnly>
         <div className="hidden md:flex items-center gap-2 ">
+          {planBadge}
           <SignedIn>
             <UserButton />
           </SignedIn>

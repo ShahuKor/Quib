@@ -1,7 +1,26 @@
 import { UploadForm } from "@/components/upload/fileupload";
 import UploadHeader from "@/components/upload/upload-header";
+import { hasReachedUploadLimit } from "@/lib/user";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const user = await currentUser();
+  const userId = user?.id;
+  const userEmail = user?.emailAddresses[0]?.emailAddress;
+
+  if (!userId || !userEmail) {
+    return redirect("/sign-up");
+  }
+  const { reachedUploadLimit, uploadCount } = await hasReachedUploadLimit({
+    userId,
+    userEmail,
+  });
+
+  if (reachedUploadLimit) {
+    redirect("/dashboard");
+  }
+
   return (
     <section className="min-h-screen relative">
       <div className="max-w-7xl mx-auto px-2 py-24 sm:py-32 lg:px-8 ">

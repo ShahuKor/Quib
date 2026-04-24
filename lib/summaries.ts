@@ -83,3 +83,15 @@ export function parseEmojiPoint(content: string) {
     text: text.trim(),
   };
 }
+
+export async function getUploadCount(userId: string) {
+  try {
+    const sql = await getDbConnection();
+    const [{ count }] =
+      await sql`SELECT COUNT(*) FROM pdf_summaries WHERE user_id=${userId}`;
+    return Number(count);
+  } catch (error) {
+    console.log("Error Fetching the count of pdfs uploaded by the user", error);
+    return 0;
+  }
+}

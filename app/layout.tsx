@@ -6,6 +6,7 @@ import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
+import PlanBadge from "@/components/common/planbadge";
 
 const fontsans = FontSans({
   variable: "--font-geist-sans",
@@ -36,7 +37,7 @@ export default function RootLayout({
         >
           <div className="relative flex flex-col min-h-screen ">
             <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_0%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]"></div>
-            <Header />
+            <Header planBadge={<PlanBadge />} />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>

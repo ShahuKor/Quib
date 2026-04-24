@@ -1,19 +1,24 @@
 import SummaryCard from "@/components/summaries/summary-card";
 import { Button } from "@/components/ui/button";
 import { getSummaries } from "@/lib/summaries";
+import { hasReachedUploadLimit } from "@/lib/user";
 import { currentUser } from "@clerk/nextjs/server";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  let uploadlimit = 5;
   const user = await currentUser();
   const userId = user?.id;
-  if (!userId) {
+  const userEmail = user?.emailAddresses[0]?.emailAddress;
+
+  if (!userId || !userEmail) {
     return redirect("/sign-up");
   }
-
+  const { reachedUploadLimit, uploadCount } = await hasReachedUploadLimit({
+    userId,
+    userEmail,
+  });
   const summaries = await getSummaries(userId);
 
   return (
@@ -28,23 +33,27 @@ export default async function Page() {
               Transform your PDFs into concise, actionable insights
             </p>
           </div>
-          <Button className="w-28 md:w-31 lg:w-35 h-7 md:h-full text-[10px] md:text-xs lg:text-sm bg-gradient-to-r from-zinc-800 to-zinc-600 md:px-6 md:py-3 font-normal md:font-medium text-white shadow-md transition hover:brightness-180 hover:shadow-lg">
-            <Plus className="size-3" />
-            <Link href={"/upload"}>Create Summary</Link>
-          </Button>
+          {!reachedUploadLimit && (
+            <Button className="w-28 md:w-31 lg:w-35 h-7 md:h-full text-[10px] md:text-xs lg:text-sm bg-gradient-to-r from-zinc-800 to-zinc-600 md:px-6 md:py-3 font-normal md:font-medium text-white shadow-md transition hover:brightness-180 hover:shadow-lg">
+              <Plus className="size-3" />
+              <Link href={"/upload"}>Create Summary</Link>
+            </Button>
+          )}
         </div>
+        {reachedUploadLimit && (
+          <div className="bg-[#E6F6FF] px-2 py-2 md:py-3 md:px-3 text-[10px] md:text-sm text-cyan-700 font-medium border-cyan-600/20 border border-dashed rounded-sm mb-6">
+            <p>
+              You have reached the limit of {uploadCount} on Basic Plan.{" "}
+              <Link
+                className="font-semibold underline-offset-2 underline"
+                href={"https://buy.stripe.com/test_bJecN40Cx8fC2667mH8AE01"}
+              >
+                Click here to Upgrade to Pro
+              </Link>
+            </p>
+          </div>
+        )}
 
-        <div className="bg-[#E6F6FF] px-2 py-2 md:py-3 md:px-3 text-[10px] md:text-sm text-cyan-700 font-medium border-cyan-600/20 border border-dashed rounded-sm mb-6">
-          <p>
-            You have reached the limit of {uploadlimit} on Basic Plan.{" "}
-            <Link
-              className="font-semibold underline-offset-2 underline"
-              href={"/#pricing"}
-            >
-              Click here to Upgrade to Pro
-            </Link>
-          </p>
-        </div>
         <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 sm:px-0">
           {summaries.map((summary, index) => (
             <SummaryCard key={index} summary={summary} />
