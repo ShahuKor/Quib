@@ -6,14 +6,12 @@ import { redirect } from "next/navigation";
 
 export default async function Page() {
   const user = await currentUser();
-  const userId = user?.id;
   const userEmail = user?.emailAddresses[0]?.emailAddress;
 
-  if (!userId || !userEmail) {
+  if (!userEmail) {
     return redirect("/sign-up");
   }
-  const { reachedUploadLimit, uploadCount } = await hasReachedUploadLimit({
-    userId,
+  const { reachedUploadLimit } = await hasReachedUploadLimit({
     userEmail,
   });
 
@@ -26,7 +24,7 @@ export default async function Page() {
       <div className="max-w-7xl mx-auto px-2 py-24 sm:py-32 lg:px-8 ">
         <div className="flex flex-col items-center justify-center">
           <UploadHeader />
-          <UploadForm />
+          <UploadForm email={userEmail} />
         </div>
       </div>
     </section>

@@ -23,7 +23,7 @@ const schema = z.object({
     ),
 });
 
-export function UploadForm() {
+export function UploadForm({ email }: { email: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setisLoading] = useState(false);
   const router = useRouter();
@@ -101,6 +101,7 @@ export function UploadForm() {
             fileUrl: resp[0].serverData.file.url,
             title: data.title,
             fileName: file.name,
+            userEmail: email,
           });
 
           toast("✨ Summary Generated!", {

@@ -14,6 +14,7 @@ interface PdfSummaryType {
   summary: string;
   title: string;
   fileName: string;
+  userEmail: string;
 }
 
 export async function generateSummary(
@@ -106,12 +107,14 @@ export async function savePDF({
   summary,
   title,
   fileName,
+  userEmail,
 }: {
   userId: string;
   fileUrl: string;
   summary: string;
   title: string;
   fileName: string;
+  userEmail: string;
 }) {
   //sql inserting pdf summary
   try {
@@ -130,6 +133,12 @@ export async function savePDF({
  ${fileName} 
 ) RETURNING id, summary_text`;
 
+    await sql`
+  UPDATE users 
+  SET total_uploads = total_uploads + 1 
+  WHERE email = ${userEmail}
+`;
+
     return savedSummary;
   } catch (error) {
     console.error("Error saving the summary", error);
@@ -142,6 +151,7 @@ export async function storePdfSummaryAction({
   summary,
   title,
   fileName,
+  userEmail,
 }: PdfSummaryType) {
   let savePDFSummary: any;
   try {
@@ -158,6 +168,7 @@ export async function storePdfSummaryAction({
       summary,
       title,
       fileName,
+      userEmail,
     });
     if (!savePDFSummary) {
       return {

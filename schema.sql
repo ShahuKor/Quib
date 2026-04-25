@@ -10,6 +10,7 @@ CREATE TABLE users (
     full_name VARCHAR(255),
     customer_id VARCHAR(255) UNIQUE,
     price_id VARCHAR(255),
+    total_uploads INTEGER DEFAULT 0,
     status VARCHAR(50) DEFAULT 'inactive'
 );
 

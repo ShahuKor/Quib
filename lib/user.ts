@@ -12,13 +12,11 @@ export async function getUserPlanId(email: string) {
 }
 
 export async function hasReachedUploadLimit({
-  userId,
   userEmail,
 }: {
-  userId: string;
   userEmail: string;
 }) {
-  const uploadCount = await getUploadCount(userId);
+  const uploadCount = await getUploadCount(userEmail);
   const planId = await getUserPlanId(userEmail);
 
   const isPro =

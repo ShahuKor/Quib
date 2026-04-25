@@ -16,7 +16,6 @@ export default async function Page() {
     return redirect("/sign-up");
   }
   const { reachedUploadLimit, uploadCount } = await hasReachedUploadLimit({
-    userId,
     userEmail,
   });
   const summaries = await getSummaries(userId);
