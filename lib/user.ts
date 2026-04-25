@@ -26,3 +26,33 @@ export async function hasReachedUploadLimit({
 
   return { reachedUploadLimit: uploadCount >= uploadLimit, uploadCount };
 }
+
+export async function userExists({ userEmail }: { userEmail: string }) {
+  const sql = await getDbConnection();
+
+  const result = await sql`
+  SELECT EXISTS (
+    SELECT 1
+    FROM users
+    WHERE email = ${userEmail}
+  ) AS exists;
+`;
+
+  return result[0].exists;
+}
+
+export async function checkActiveSubscription({
+  userEmail,
+}: {
+  userEmail: string;
+}) {
+  const sql = await getDbConnection();
+
+  const result = await sql`SELECT status FROM users WHERE email = ${userEmail}`;
+
+  if (!result.length) {
+    return null;
+  }
+
+  return result[0].status;
+}

@@ -19,7 +19,7 @@ export default function Header({ planBadge }: { planBadge?: React.ReactNode }) {
   }, [menuOpen]);
 
   return (
-    <nav className="relative w-full px-4 py-4 lg:px-8 flex items-center justify-between ">
+    <nav className="relative w-full px-4 py-4 lg:px-8 flex items-center justify-between">
       {/* Logo */}
       <NavLink href="/" className="flex items-center gap-2 ">
         <FileText className="h-6 w-6 text-gray-900 hover:rotate-12 transform transition duration-200 ease-in-out" />
@@ -37,16 +37,18 @@ export default function Header({ planBadge }: { planBadge?: React.ReactNode }) {
         </SignedOut>
 
         <SignedIn>
-          <div className="hidden md:flex items-center justify-center gap-6">
+          <div className="hidden md:flex items-center justify-center gap-6 lg:pl-40">
             <NavLink href="/#pricing">Pricing</NavLink>
             <NavLink href="/dashboard">You Summaries</NavLink>
-            <NavLink href="/upload">Upload a PDF</NavLink>
           </div>
         </SignedIn>
       </ClientOnly>
 
       <ClientOnly>
         <div className="hidden md:flex items-center gap-2 ">
+          <SignedIn>
+            <NavLink href="/upload">Upload a PDF</NavLink>
+          </SignedIn>
           {planBadge}
           <SignedIn>
             <UserButton />
