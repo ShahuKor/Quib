@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import { FileText, Menu, X } from "lucide-react";
 import NavLink from "./nav-link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import ClientOnly from "../client";
+import UserButtonCustom from "./UserButtonCustom";
 
 export default function Header({ planBadge }: { planBadge?: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,7 +52,7 @@ export default function Header({ planBadge }: { planBadge?: React.ReactNode }) {
           </SignedIn>
           {planBadge}
           <SignedIn>
-            <UserButton />
+            <UserButtonCustom />
           </SignedIn>
           <SignedOut>
             <NavLink href="/sign-in">Sign In</NavLink>
@@ -92,7 +93,7 @@ export default function Header({ planBadge }: { planBadge?: React.ReactNode }) {
                   Upload a PDF
                 </NavLink>
                 <span>Pro</span>
-                <UserButton />
+                <UserButtonCustom />
               </>
             </SignedIn>
 

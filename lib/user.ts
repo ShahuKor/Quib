@@ -56,3 +56,16 @@ export async function checkActiveSubscription({
 
   return result[0].status;
 }
+
+export async function getUserCustomerId({ email }: { email: string }) {
+  const sql = await getDbConnection();
+
+  const result =
+    await sql`SELECT customer_id FROM users WHERE email = ${email}`;
+
+  if (!result.length) {
+    return null;
+  }
+
+  return result[0].customer_id;
+}
