@@ -1,5 +1,5 @@
 import UpgradeRequired from "@/components/common/upgrade-required";
-import { checkActiveSubscription, userExists } from "@/lib/user";
+import { userExists } from "@/lib/user";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -14,8 +14,8 @@ export default async function Layout({
   }
   const userEmail = user?.emailAddresses[0]?.emailAddress;
   const isUserPresent = await userExists({ userEmail });
-  const hasActiveSubscription = await checkActiveSubscription({ userEmail });
-  if (!isUserPresent || hasActiveSubscription !== "active") {
+
+  if (!isUserPresent) {
     return <UpgradeRequired />;
   }
   return <div>{children}</div>;

@@ -1,6 +1,7 @@
 import { Sparkle } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import SignoutButtonCustom from "./SignoutButtonCustom";
 
 export default function UpgradeRequired() {
   return (
@@ -16,6 +17,7 @@ export default function UpgradeRequired() {
         <Button className="w-28 md:w-31 lg:w-35 h-7 md:h-full text-[10px] md:text-xs lg:text-sm bg-gradient-to-r from-zinc-800 to-zinc-600 md:px-6 md:py-3 font-normal md:font-medium text-white shadow-md transition hover:brightness-180 hover:shadow-lg ">
           <Link href={"/#pricing"}>Upgrade</Link>
         </Button>
+        <SignoutButtonCustom />
       </div>
     </div>
   );

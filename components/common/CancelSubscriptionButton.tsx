@@ -27,7 +27,7 @@ export default function CancelSubscriptionButton({
       <Button
         size={"lg"}
         variant={"link"}
-        className="w-40  px-6  py-3 text-sm font-medium text-red-500 hover:no-underline border-red-500 border flex items-center justify-center hover:text-red-400 hover:border-red-400"
+        className="w-24 md:w-40 px-4 py-1 md:px-6 md:py-3 text-xs md:text-sm font-medium text-red-500 hover:no-underline border-red-500 border flex items-center justify-center hover:text-red-400 hover:border-red-400"
         onClick={buttonEvent}
       >
         Cancel Subscription

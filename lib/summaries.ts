@@ -96,3 +96,27 @@ export async function getUploadCount(userEmail: string) {
     return 0;
   }
 }
+
+export const greetings = [
+  "Hello",
+  "Hey",
+  "Heyy",
+  "Hi",
+  "Hi there",
+  "Hey there",
+  "Hola",
+  "Namaste",
+  "Yo",
+  "Sup",
+  "What’s up",
+  "How you doing",
+  "How’s it going",
+  "How are you",
+  "Welcome back",
+  "Long time no see",
+  "Nice to see you",
+  "Good to see you",
+  "Hey friend",
+  "Let’s build something",
+  "Let’s make something cool",
+];

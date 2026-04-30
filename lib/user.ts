@@ -41,22 +41,6 @@ export async function userExists({ userEmail }: { userEmail: string }) {
   return result[0].exists;
 }
 
-export async function checkActiveSubscription({
-  userEmail,
-}: {
-  userEmail: string;
-}) {
-  const sql = await getDbConnection();
-
-  const result = await sql`SELECT status FROM users WHERE email = ${userEmail}`;
-
-  if (!result.length) {
-    return null;
-  }
-
-  return result[0].status;
-}
-
 export async function getUserCustomerId({ email }: { email: string }) {
   const sql = await getDbConnection();
 
@@ -68,4 +52,27 @@ export async function getUserCustomerId({ email }: { email: string }) {
   }
 
   return result[0].customer_id;
+}
+
+export async function checkIfRepeatPlan({
+  email,
+  priceId,
+}: {
+  email: string | null;
+  priceId: string | undefined;
+}) {
+  const sql = await getDbConnection();
+
+  const priceIdstored =
+    await sql`SELECT price_id FROM payments WHERE user_email=${email}`;
+
+  if (!priceIdstored.length) {
+    return null;
+  }
+
+  if (priceIdstored[0].price_id == priceId) {
+    return true;
+  } else {
+    return false;
+  }
 }

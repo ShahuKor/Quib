@@ -1,5 +1,6 @@
 import { Stripe } from "stripe";
 import { getDbConnection } from "./db";
+import { checkIfRepeatPlan } from "./user";
 
 export async function handleCheckoutSessionCompleted({
   session,
@@ -15,6 +16,11 @@ export async function handleCheckoutSessionCompleted({
   const { amount_total, status, id } = session;
   if ("email" in customer && priceId) {
     const { email, name } = customer;
+
+    const repeatPlan = await checkIfRepeatPlan({ email, priceId });
+    if (repeatPlan === true) {
+      return "Cannot subscribe to the same plan again";
+    }
 
     await createOrUpdateUser({
       sql,
