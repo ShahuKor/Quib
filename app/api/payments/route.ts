@@ -26,7 +26,18 @@ export async function POST(req: NextRequest) {
           const session = await stripe.checkout.sessions.retrieve(sessionId, {
             expand: ["line_items"],
           });
-          await handleCheckoutSessionCompleted({ session, stripe });
+          const result = await handleCheckoutSessionCompleted({
+            session,
+            stripe,
+          });
+
+          if (result?.error) {
+            // Still return 200 to Stripe, otherwise it will keep retrying the webhook.
+            // Log the issue on your side instead.
+            console.error(
+              `Checkout blocked: ${result.error} (status: ${result.status})`,
+            );
+          }
           break;
 
         case "customer.subscription.deleted":

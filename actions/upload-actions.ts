@@ -124,20 +124,16 @@ export async function savePDF({
     original_file_url,
     summary_text,
     title,
-    file_name
+    file_name,
+    user_email
 ) VALUES (
  ${userId},
  ${fileUrl},
  ${summary},
  ${title},
- ${fileName} 
+ ${fileName} ,
+ ${userEmail}
 ) RETURNING id, summary_text`;
-
-    await sql`
-  UPDATE users 
-  SET total_uploads = total_uploads + 1 
-  WHERE email = ${userEmail}
-`;
 
     return savedSummary;
   } catch (error) {

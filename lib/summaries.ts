@@ -84,19 +84,6 @@ export function parseEmojiPoint(content: string) {
   };
 }
 
-export async function getUploadCount(userEmail: string) {
-  try {
-    const sql = await getDbConnection();
-    const result =
-      await sql`SELECT total_uploads FROM users WHERE email = ${userEmail}`;
-
-    return Number(result[0]?.total_uploads ?? 0);
-  } catch (error) {
-    console.log("Error Fetching the count of pdfs uploaded by the user", error);
-    return 0;
-  }
-}
-
 export const greetings = [
   "Hello",
   "Hey",
